@@ -37,7 +37,7 @@ def get_lyrics(link: str):
 
 def set_lyrics_to_song(song_path: str):
     f = music_tag.load_file(song_path)
-    title = str(f['title']).split(" ")[0]
+    title = str(f['title'])
     search_results = search_lyrics(title)
     if search_results:
         lyrics = get_lyrics(search_results['link'])
