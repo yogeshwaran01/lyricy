@@ -1,0 +1,9 @@
+beautifulsoup4==4.11.1
+certifi==2022.6.15
+charset-normalizer==2.1.0
+idna==3.3
+music-tag==0.4.3
+mutagen==1.45.1
+requests==2.28.1
+soupsieve==2.3.2.post1
+urllib3==1.26.9
