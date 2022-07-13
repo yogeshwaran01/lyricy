@@ -1,0 +1,5 @@
+{
+    "python.formatting.provider": "autopep8",
+    "python.formatting.blackPath": "~/.local/bin/black",
+    "python.formatting.autopep8Path": "~/.local/bin/autopep8"
+}
