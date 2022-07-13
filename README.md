@@ -1,6 +1,6 @@
-# lyricy
+# lyricy :musical_note:
 
-A command line lyrics utitly tool which search and add lyrics to your offline songs.
+A command line lyrics utility tool which search and add lyrics to your offline songs.
 
 ## Why lyricy ?
 
@@ -10,7 +10,7 @@ you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicP
 
 ## Installation
 
-Direct installation using pip
+Using pip
 
 ```bash
 pip install lyricy
