@@ -25,6 +25,8 @@ pip install lyricy
 
 ## Usage
 
+![demo](https://github.com/yogeshwaran01/lyricy/blob/master/demo/demo_lyricy.gif?raw=true)
+
 ```txt
 Usage: lyricy [OPTIONS] COMMAND [ARGS]...
 
