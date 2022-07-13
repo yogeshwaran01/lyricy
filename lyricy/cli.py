@@ -5,6 +5,7 @@ import music_tag
 import pylrc
 from rich import print
 from rich.columns import Columns
+from rich import box
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
@@ -50,8 +51,9 @@ def cli():
 @click.option(
     "--only-lyrics", "-l", is_flag=True, help="Show Lyrics Only (without LRC tag)"
 )
+@click.option("-s", "--save", help="Save file as .lrc")
 @click.option("-q", "--query", type=str, help="search query of track name")
-def search(track: str, query: str, disable_preview: bool, only_lyrics: bool):
+def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, save: str):
     """Search for lyrics for given track or query"""
     if track:
         f = music_tag.load_file(track)
@@ -81,45 +83,51 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool):
         lyric = Megalobiz.get_lyrics(selected_lyrics.link)
 
     if only_lyrics:
-        lyric_panel = Panel(
-            Text(lyrics_without_tags(lyric), justify="left"),
-            title=selected_lyrics.title,
-        )
+        if save:
+            with open(f"{save}.lru", 'w') as file:
+                file.write(lyrics_without_tags(lyric))
+        print(lyrics_without_tags(lyric))
     else:
-        lyric_panel = Panel(Text(lyric, justify="left"), title=selected_lyrics.title)
-    print(lyric_panel)
+        if save:
+            with open(f"{save}.lru", 'w') as file:
+                file.write(lyric)
+        print(lyric)
 
 
 @click.command()
 @click.argument("track", type=click.Path(exists=True))
 @click.option("--disable-preview", "-d", is_flag=True, help="Disable the preview")
 @click.option("--show", is_flag=True, help="Print the lyrics and ask for confirmation")
-def add(track, show, disable_preview):
+@click.option("--lru", type=click.Path(exists=True), help="Lyrics file to add on track")
+def add(track: str, show: bool, disable_preview: bool, lru: str):
     """Search and add lyrics to given TRACK.
 
     TRACK is the filepath of track.
     """
     f = music_tag.load_file(track)
-    title = str(f["title"])
-    with console.status(f"[bold green]Searching lyrics for {title}") as _:
-        results = Megalobiz.search_lyrics(title)
+    if lru:
+        with open(lru, 'r') as file:
+            lyric = file.read()
+    else:
+        title = str(f["title"])
+        with console.status(f"[bold green]Searching lyrics for {title}") as _:
+            results = Megalobiz.search_lyrics(title)
 
-    songs_lyrics_renderables = [
-        Panel(format_table(result, disable_preview), expand=True) for result in results
-    ]
-    console.print(Columns(songs_lyrics_renderables))
+        songs_lyrics_renderables = [
+            Panel(format_table(result, disable_preview), expand=True) for result in results
+        ]
+        console.print(Columns(songs_lyrics_renderables))
 
-    selected_lyrics_index = str(
-        click.prompt("Enter the index of lyrics", type=int, default=1) - 1
-    )
+        selected_lyrics_index = str(
+            click.prompt("Enter the index of lyrics", type=int, default=1) - 1
+        )
 
-    selected_lyrics = results[int(selected_lyrics_index)]
-    with console.status("[bold green]Fetching Lyrics") as _:
-        lyric = Megalobiz.get_lyrics(selected_lyrics.link)
+        selected_lyrics = results[int(selected_lyrics_index)]
+        with console.status("[bold green]Fetching Lyrics") as _:
+            lyric = Megalobiz.get_lyrics(selected_lyrics.link)
 
     if show:
-        lyric_panel = Panel(Text(lyric, justify="left"), title=selected_lyrics.title)
-        print(lyric_panel)
+        print(lyric)
 
         if click.confirm("Do you want add this lyrics?", abort=True):
             with console.status("[bold green]Adding Lyrics") as _:
@@ -157,13 +165,9 @@ def show(track, only_lyrics):
     f = music_tag.load_file(track)
     lyric = str(f["lyrics"])
     if only_lyrics:
-        lyric_panel = Panel(
-            Text(lyrics_without_tags(lyric), justify="left"), title=str(f["title"])
-        )
+       print(lyrics_without_tags(lyric))
     else:
-        lyric_panel = Panel(Text(lyric, justify="left"), title=str(f["title"]))
-    print(lyric_panel)
-
+       print(lyric)
 
 cli.add_command(search)
 cli.add_command(add)
