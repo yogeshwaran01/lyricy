@@ -96,7 +96,7 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
 
 @click.command()
 @click.argument("track", type=click.Path(exists=True))
-@click.option("--query", "-q", help="search for this query instead of track")
+@click.option("--query", "-q", help="search for this query instead of track name")
 @click.option("--disable-preview", "-d", is_flag=True, help="Disable the preview")
 @click.option("--show", is_flag=True, help="Print the lyrics and ask for confirmation")
 @click.option("--lru", type=click.Path(exists=True), help="Lyrics file to add on track")
