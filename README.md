@@ -1,4 +1,4 @@
-# lyricy :musical_note:
+# 🎼 lyricy
 
 A command line lyrics utility tool which search and add lyrics to your offline songs.
 
