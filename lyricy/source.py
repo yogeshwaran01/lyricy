@@ -37,7 +37,9 @@ class Megalobiz:
             )
 
         if len(results) == 0:
-            return None
+            return [
+                Lyrics(title=" No result found", link="", sample_lyrics="", index="1")
+            ]
 
         else:
             return results

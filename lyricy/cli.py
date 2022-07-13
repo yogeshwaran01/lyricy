@@ -84,37 +84,42 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
 
     if only_lyrics:
         if save:
-            with open(f"{save}.lru", 'w') as file:
+            with open(f"{save}.lru", "w") as file:
                 file.write(lyrics_without_tags(lyric))
         print(lyrics_without_tags(lyric))
     else:
         if save:
-            with open(f"{save}.lru", 'w') as file:
+            with open(f"{save}.lru", "w") as file:
                 file.write(lyric)
         print(lyric)
 
 
 @click.command()
 @click.argument("track", type=click.Path(exists=True))
+@click.option("--query", "-q", help="search for this query instead of track")
 @click.option("--disable-preview", "-d", is_flag=True, help="Disable the preview")
 @click.option("--show", is_flag=True, help="Print the lyrics and ask for confirmation")
 @click.option("--lru", type=click.Path(exists=True), help="Lyrics file to add on track")
-def add(track: str, show: bool, disable_preview: bool, lru: str):
+def add(track: str, show: bool, disable_preview: bool, lru: str, query: str):
     """Search and add lyrics to given TRACK.
 
     TRACK is the filepath of track.
     """
     f = music_tag.load_file(track)
     if lru:
-        with open(lru, 'r') as file:
+        with open(lru, "r") as file:
             lyric = file.read()
     else:
-        title = str(f["title"])
+        if query:
+            title = query
+        else:
+            title = str(f["title"])
         with console.status(f"[bold green]Searching lyrics for {title}") as _:
             results = Megalobiz.search_lyrics(title)
 
         songs_lyrics_renderables = [
-            Panel(format_table(result, disable_preview), expand=True) for result in results
+            Panel(format_table(result, disable_preview), expand=True)
+            for result in results
         ]
         console.print(Columns(songs_lyrics_renderables))
 
@@ -165,9 +170,10 @@ def show(track, only_lyrics):
     f = music_tag.load_file(track)
     lyric = str(f["lyrics"])
     if only_lyrics:
-       print(lyrics_without_tags(lyric))
+        print(lyrics_without_tags(lyric))
     else:
-       print(lyric)
+        print(lyric)
+
 
 cli.add_command(search)
 cli.add_command(add)
