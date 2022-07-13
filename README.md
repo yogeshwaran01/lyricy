@@ -21,7 +21,9 @@ pip install lyricy
 - Easy to add lyrics to your offline songs
 - Preview of lyrics
 - Synced lyrics with lru time tags
-- Lyrics lru without tags
+- Lyrics without lru tags
+- Save lyrics as lru file
+- Add your own lyrics or downloaed lyrics to songs
 
 ## Usage
 
@@ -42,10 +44,18 @@ Commands:
   show    Show the lyrics of TRACK if available.
 ```
 
+- [Searching for lyrics using your queries](#searching-for-lyrics-using-your-queries)
+- [Searching for lyrics for your track](#searching-for-lyrics-for-your-track)
+- [Adding lyrics](#adding-lyrics)
+- [Remove lyrics](#remove-lyrics)
+- [Show lyrics](#show-lyrics)
+- [Downloading lrc file](#downloading-lrc-file)
+- [Add lrc file to song](#add-lrc-file-to-song)
+
 ### Searching for lyrics using your queries
 
 ```txt
-Usage:  [OPTIONS]
+Usage: python -m lyricy search [OPTIONS]
 
   Search for lyrics for given track or query
 
@@ -53,8 +63,9 @@ Options:
   -t, --track PATH       file path of track
   -d, --disable-preview  Disable the preview
   -l, --only-lyrics      Show Lyrics Only (without LRC tag)
+  -s, --save TEXT        Save file as .lrc
   -q, --query TEXT       search query of track name
-  --help                 Show this message and exit.
+  --help                 Show this message and exit
 ```
 
 ```bash
@@ -76,25 +87,31 @@ After searching it print list of lyrics, enter the index number lyrics to get th
 Adding lyrics to track metadata to get synced lyrics
 
 ```txt
-Usage: lyricy add [OPTIONS] TRACK
+Usage: python -m lyricy add [OPTIONS] TRACK
 
   Search and add lyrics to given TRACK.
 
   TRACK is the filepath of track.
 
 Options:
+  -q, --query TEXT       search for this query instead of track name
   -d, --disable-preview  Disable the preview
   --show                 Print the lyrics and ask for confirmation
+  --lru PATH             Lyrics file to add on track
   --help                 Show this message and exit.
 ```
-
-Track must have ablum metameta `title`
 
 ```bash
 lyricy add 'Imagine Dragons - Believer.mp3'
 ```
 
 select the prefferd lyrics for the song to add it
+
+If track does not have metadata `title` or any other unrevelant name, use can use `--query` option to override this.
+
+```bash
+lyricy add 'some-track.mp3' --query "vikram title track"
+```
 
 ### Remove lyrics
 
@@ -130,6 +147,22 @@ Options:
 ```bash
 lyricy show 'Imagine Dragons - Believer.mp31
 ```
+
+### Downloading lrc file
+
+```bash
+lyricy search --query "new york" --save "new_york"
+```
+
+This search and ask for the prompt, select any song it will download and save as `lrc` file
+
+### Add lrc file to song
+
+```bash
+lyricy add track.mp3 --lru track.lru
+```
+
+It will add the lyrics to song metadata
 
 ## Source of lyrics
 
