@@ -5,19 +5,16 @@ import music_tag
 import pylrc
 from rich import print
 from rich.columns import Columns
-from rich import box
 from rich.console import Console
 from rich.panel import Panel
-from rich.text import Text
 
-from .classes import Lyrics
+from .classes import BaseLyrics
 from .source import Megalobiz
-
 
 console = Console()
 
 
-def format_table(lyrics: Lyrics, disable_preview: bool) -> str:
+def format_table(lyrics: BaseLyrics, disable_preview: bool) -> str:
     title = lyrics.title
     sample_lyrics = lyrics.sample_lyrics
     index = lyrics.index
