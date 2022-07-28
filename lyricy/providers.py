@@ -38,7 +38,9 @@ class Megalobiz:
 
         if len(results) == 0:
             return [
-                BaseLyrics(title=" No result found", link="", sample_lyrics="", index="1")
+                BaseLyrics(
+                    title=" No result found", link="", sample_lyrics="", index="1"
+                )
             ]
 
         else:
@@ -67,17 +69,22 @@ class RcLyricsBand:
         soup = BeautifulSoup(markup, "html.parser")
         outer_tags = soup.find_all("h2", {"class": "search-entry-title"})
         results = []
-        for outer_tag in outer_tags:
+        for index, outer_tag in enumerate(outer_tags):
             inner_tag = outer_tag.find("a")
             results.append(
                 BaseLyrics(
                     title=inner_tag.get("title"),
                     link=inner_tag.get("href"),
                     sample_lyrics="",
+                    index=str(index + 1),
                 )
             )
         if len(results) == 0:
-            return None
+            return [
+                BaseLyrics(
+                    title=" No result found", link="", sample_lyrics="", index="1"
+                )
+            ]
         else:
             return results
 

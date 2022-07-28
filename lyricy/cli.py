@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 from .classes import BaseLyrics
-from .source import Megalobiz
+from .providers import Megalobiz
 
 console = Console()
 
@@ -37,7 +37,7 @@ def lyrics_without_tags(lyrics_with_lrc_tags: str) -> str:
 @click.group()
 def cli():
     """
-    A CLI lyrics utility tool
+    A command line lyrics utility tool which search and add lyrics to your offline songs.
     """
     pass
 
