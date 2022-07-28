@@ -26,6 +26,9 @@
     <a href="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-publish.yml">
     <img alt="Upload lyricy to pypi" src="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-publish.yml/badge.svg"/>
     </a>
+    <a href="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-package.yml">
+    <img alt="Python package" src="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-package.yml/badge.svg"/>
+    </a>
 </p>
 
 </hr>
