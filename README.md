@@ -23,7 +23,9 @@
     <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
     </a>
     <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/lyricy"/>
-
+    <a href="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-publish.yml">
+    <img alt="Upload lyricy to pypi" src="https://github.com/yogeshwaran01/lyricy/actions/workflows/python-publish.yml/badge.svg"/>
+    </a>
 </p>
 
 </hr>
@@ -60,7 +62,7 @@ pip install lyricy
 
 ## Usage
 
-- [Using as a cli tool](#cli)
+- [Using as a CLI tool](#cli)
 - [Using as a python package](#python-package)
 
 ### CLI
@@ -87,7 +89,7 @@ Commands:
 - [Searching for lyrics for your track](#searching-for-lyrics-for-your-track)
 - [Adding lyrics](#adding-lyrics)
 - [Remove lyrics](#remove-lyrics)
-- [Chaning lyrics provider]
+- [Changing lyrics provider](#chaning-lyrics-provider)
 - [Show lyrics](#show-lyrics)
 - [Downloading lrc file](#downloading-lrc-file)
 - [Add lrc file to song](#add-lrc-file-to-song)
@@ -245,7 +247,7 @@ It will add the lyrics to song metadata
 >>> selected_lyrics.add_to_track("path_to_track.mp3")
 ```
 
-### Using Other Providers
+#### Using Other Providers
 
 Default provider is [https://www.megalobiz.com/](https://www.megalobiz.com/), but you can use other provider is [https://rclyricsband.com/](https://rclyricsband.com/).
 
