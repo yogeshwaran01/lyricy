@@ -3,13 +3,13 @@ from urllib.parse import quote_plus
 import requests
 from bs4 import BeautifulSoup
 
-from .classes import Lyrics
+from .classes import BaseLyrics
 
 
 class Megalobiz:
     """Search and scrape lyrics for Megalobiz site"""
 
-    def search_lyrics(song_name: str) -> list[Lyrics]:
+    def search_lyrics(song_name: str) -> list[BaseLyrics]:
         """Search for lyrics"""
 
         results = []
@@ -28,7 +28,7 @@ class Megalobiz:
 
         for index, tag in enumerate(required_tags):
             results.append(
-                Lyrics(
+                BaseLyrics(
                     title=tag.get("title"),
                     link="https://www.megalobiz.com" + tag.get("href"),
                     sample_lyrics=sample_lyrics_list[index],
@@ -38,7 +38,9 @@ class Megalobiz:
 
         if len(results) == 0:
             return [
-                Lyrics(title=" No result found", link="", sample_lyrics="", index="1")
+                BaseLyrics(
+                    title=" No result found", link="", sample_lyrics="", index="1"
+                )
             ]
 
         else:
@@ -67,17 +69,22 @@ class RcLyricsBand:
         soup = BeautifulSoup(markup, "html.parser")
         outer_tags = soup.find_all("h2", {"class": "search-entry-title"})
         results = []
-        for outer_tag in outer_tags:
+        for index, outer_tag in enumerate(outer_tags):
             inner_tag = outer_tag.find("a")
             results.append(
-                Lyrics(
+                BaseLyrics(
                     title=inner_tag.get("title"),
                     link=inner_tag.get("href"),
                     sample_lyrics="",
+                    index=str(index + 1),
                 )
             )
         if len(results) == 0:
-            return None
+            return [
+                BaseLyrics(
+                    title=" No result found", link="", sample_lyrics="", index="1"
+                )
+            ]
         else:
             return results
 

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Lyrics:
+class BaseLyrics:
     """Dataclass Class for lyrics"""
 
     title: str

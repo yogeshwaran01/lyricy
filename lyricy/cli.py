@@ -5,19 +5,16 @@ import music_tag
 import pylrc
 from rich import print
 from rich.columns import Columns
-from rich import box
 from rich.console import Console
 from rich.panel import Panel
-from rich.text import Text
 
-from .classes import Lyrics
-from .source import Megalobiz
-
+from .classes import BaseLyrics
+from .providers import Megalobiz, RcLyricsBand
 
 console = Console()
 
 
-def format_table(lyrics: Lyrics, disable_preview: bool) -> str:
+def format_table(lyrics: BaseLyrics, disable_preview: bool) -> str:
     title = lyrics.title
     sample_lyrics = lyrics.sample_lyrics
     index = lyrics.index
@@ -40,7 +37,7 @@ def lyrics_without_tags(lyrics_with_lrc_tags: str) -> str:
 @click.group()
 def cli():
     """
-    A CLI lyrics utility tool
+    A command line lyrics utility tool which search and add lyrics to your offline songs.
     """
     pass
 
@@ -53,7 +50,8 @@ def cli():
 )
 @click.option("-s", "--save", help="Save file as .lrc")
 @click.option("-q", "--query", type=str, help="search query of track name")
-def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, save: str):
+@click.option("-p", "--provider", type=str, help="Lyrics provider name [rc] or [mo]")
+def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, save: str, provider: str):
     """Search for lyrics for given track or query"""
     if track:
         f = music_tag.load_file(track)
@@ -66,7 +64,10 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
         sys.exit()
 
     with console.status(f"[bold green]Searching lyrics for {title}") as _:
-        results = Megalobiz.search_lyrics(title)
+        if provider == "rc":
+            results = RcLyricsBand.search_lyrics(title)
+        else:
+            results = Megalobiz.search_lyrics(title)
 
     songs_lyrics_renderables = [
         Panel(format_table(result, disable_preview), expand=True) for result in results
@@ -80,16 +81,19 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
     selected_lyrics = results[int(selected_lyrics_index)]
 
     with console.status("[bold green]Fetching Lyrics") as _:
-        lyric = Megalobiz.get_lyrics(selected_lyrics.link)
+        if provider == "rc":
+            lyric = RcLyricsBand.get_lyrics(selected_lyrics.link)
+        else:
+            lyric = Megalobiz.get_lyrics(selected_lyrics.link)
 
     if only_lyrics:
         if save:
-            with open(f"{save}.lru", "w") as file:
+            with open(f"{save}.lrc", "w") as file:
                 file.write(lyrics_without_tags(lyric))
         print(lyrics_without_tags(lyric))
     else:
         if save:
-            with open(f"{save}.lru", "w") as file:
+            with open(f"{save}.lrc", "w") as file:
                 file.write(lyric)
         print(lyric)
 
@@ -99,15 +103,16 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
 @click.option("--query", "-q", help="search for this query instead of track name")
 @click.option("--disable-preview", "-d", is_flag=True, help="Disable the preview")
 @click.option("--show", is_flag=True, help="Print the lyrics and ask for confirmation")
-@click.option("--lru", type=click.Path(exists=True), help="Lyrics file to add on track")
-def add(track: str, show: bool, disable_preview: bool, lru: str, query: str):
+@click.option("--lrc", type=click.Path(exists=True), help="Lyrics file to add on track")
+@click.option("-p", "--provider", type=str, help="Lyrics provider name [rc] or [mo]")
+def add(track: str, show: bool, disable_preview: bool, lrc: str, query: str, provider: str):
     """Search and add lyrics to given TRACK.
 
     TRACK is the filepath of track.
     """
     f = music_tag.load_file(track)
-    if lru:
-        with open(lru, "r") as file:
+    if lrc:
+        with open(lrc, "r") as file:
             lyric = file.read()
     else:
         if query:
@@ -115,8 +120,10 @@ def add(track: str, show: bool, disable_preview: bool, lru: str, query: str):
         else:
             title = str(f["title"])
         with console.status(f"[bold green]Searching lyrics for {title}") as _:
-            results = Megalobiz.search_lyrics(title)
-
+            if provider == "rc":
+                results = RcLyricsBand.search_lyrics(title)
+            else:
+                results = Megalobiz.search_lyrics(title)
         songs_lyrics_renderables = [
             Panel(format_table(result, disable_preview), expand=True)
             for result in results
@@ -129,7 +136,10 @@ def add(track: str, show: bool, disable_preview: bool, lru: str, query: str):
 
         selected_lyrics = results[int(selected_lyrics_index)]
         with console.status("[bold green]Fetching Lyrics") as _:
-            lyric = Megalobiz.get_lyrics(selected_lyrics.link)
+            if provider == "rc":
+                lyric = RcLyricsBand.get_lyrics(selected_lyrics.link)
+            else:
+                lyric = Megalobiz.get_lyrics(selected_lyrics.link)
 
     if show:
         print(lyric)
