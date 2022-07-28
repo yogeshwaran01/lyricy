@@ -31,7 +31,7 @@ class Providers(Enum):
 
 class Lyrics(BaseLyrics):
     def fetch(self):
-        """Fetch the full lyrics of the song with lru tags"""
+        """Fetch the full lyrics of the song with lrc tags"""
         if "rclyricsband" in self.link:
             self.lyrics = RcLyricsBand.get_lyrics(self.link)
         else:
