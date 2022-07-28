@@ -20,9 +20,9 @@ pip install lyricy
 
 - Easy to add lyrics to your offline songs
 - Preview of lyrics
-- Synced lyrics with lru time tags
-- Lyrics without lru tags
-- Save lyrics as lru file
+- Synced lyrics with lrc time tags
+- Lyrics without lrc tags
+- Save lyrics as lrc file
 - Add your own lyrics or downloaed lyrics to songs
 
 ## Usage
@@ -97,7 +97,7 @@ Options:
   -q, --query TEXT       search for this query instead of track name
   -d, --disable-preview  Disable the preview
   --show                 Print the lyrics and ask for confirmation
-  --lru PATH             Lyrics file to add on track
+  --lrc PATH             Lyrics file to add on track
   --help                 Show this message and exit.
 ```
 
@@ -159,7 +159,7 @@ This search and ask for the prompt, select any song it will download and save as
 ### Add lrc file to song
 
 ```bash
-lyricy add track.mp3 --lru track.lru
+lyricy add track.mp3 --lrc track.lrc
 ```
 
 It will add the lyrics to song metadata
