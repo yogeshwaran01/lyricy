@@ -34,7 +34,7 @@
 
 We can use [spotDL/spotify-downloader](https://github.com/spotDL/spotify-downloader) to download our spotify playlist and songs along with album art and metadata. But it does not add the lyrics of the songs in song metadata. lyricy search for the lyrics of the song add to song metadata.
 
-you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicPlayer) for andriod to listen the offlice local songs with synced lyrics.
+you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicPlayer) for android to listen the offline local songs with synced lyrics.
 
 
 ## Lyrics Providers
@@ -57,7 +57,7 @@ pip install lyricy
 - Synced lyrics with lrc time tags
 - Lyrics without lrc tags
 - Save lyrics as lrc file
-- Add your own lyrics or downloaed lyrics to songs
+- Add your own lyrics or downloaded lyrics to songs
 - Used as a python package
 
 ## Usage
@@ -89,7 +89,7 @@ Commands:
 - [Searching for lyrics for your track](#searching-for-lyrics-for-your-track)
 - [Adding lyrics](#adding-lyrics)
 - [Remove lyrics](#remove-lyrics)
-- [Changing lyrics provider](#chaning-lyrics-provider)
+- [Changing lyrics provider](#changing-lyrics-provider)
 - [Show lyrics](#show-lyrics)
 - [Downloading lrc file](#downloading-lrc-file)
 - [Add lrc file to song](#add-lrc-file-to-song)
@@ -117,7 +117,7 @@ lyricy search --query "jolly yo gymkanna"
 
 #### Searching for lyrics for your track
 
-Track must have ablum metameta `title`
+Track must have album metadata `title`
 
 ```bash
 lyricy search --track 'Imagine Dragons - Believer.mp3'
@@ -149,15 +149,15 @@ Options:
 lyricy add 'Imagine Dragons - Believer.mp3'
 ```
 
-select the prefferd lyrics for the song to add it
+select the preferred lyrics for the song to add it
 
-If track does not have metadata `title` or any other unrevelant name, use can use `--query` option to override this.
+If track does not have metadata `title` or any other irrelevant name, use can use `--query` option to override this.
 
 ```bash
 lyricy add 'some-track.mp3' --query "vikram title track"
 ```
 
-#### Chaning lyrics provider
+#### Changing lyrics provider
 
 By default the lyrics provider is is megalobiz, but you can use other provider is rclyricsband
 
