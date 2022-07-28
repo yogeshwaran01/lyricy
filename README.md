@@ -53,6 +53,8 @@ Using pip
 pip install lyricy
 ```
 
+Windows user download this [executable file](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy.exe)
+
 ## Features
 
 - Easy to add lyrics to your offline songs
