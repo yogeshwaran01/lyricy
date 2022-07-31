@@ -1,7 +1,6 @@
 import flet
 from flet import (
     AlertDialog,
-    AppBar,
     Card,
     Column,
     Container,
@@ -11,7 +10,6 @@ from flet import (
     Page,
     ProgressBar,
     Row,
-    SnackBar,
     Text,
     TextButton,
     TextField,
@@ -20,8 +18,6 @@ from flet import (
     icons,
 )
 from lyricy import Lyrics, Lyricy
-
-FULL_LYRICS = Text("Hell")
 
 
 class LyricView(
@@ -44,7 +40,7 @@ class LyricView(
             dlg_modal.open = False
             dlg_modal.update()
             self.page.set_clipboard(self.lyrics.lyrics)
-            self.page.show_snack_bar(SnackBar(Text(f"Copied "), open=True))
+            # self.page.show_snack_bar(SnackBar(Text(f"Copied "), open=True))
 
         def close_dlg(e):
             dlg_modal.open = False
@@ -145,7 +141,7 @@ class LyricyApp(UserControl):
         self.search_query.disabled = True
         self.action_btn.disabled = True
         self.update()
-        self.search_query.clean()
+        self.results.clean()
         results = Lyricy.search(self.search_query.value)
         for result in results:
             self.results.controls.append(LyricView(result))
@@ -173,4 +169,7 @@ def main(page: Page):
     page.add(LyricyApp())
 
 
-flet.app(target=main)
+import os
+
+port = int(os.environ.get("PORT", 5000))
+flet.app(target=main, port=port)

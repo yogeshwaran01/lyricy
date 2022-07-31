@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ ! -d ".venv" ]
+then
+  echo "Performing initial setup"
+  echo "Creating virtural env"
+  python -m venv .venv
+  echo "Sourcing venv"
+  source .venv/bin/activate
+  echo "Installing requirements"
+  pip install lyricy flet
+  deactivate
+fi
+
+source .venv/bin/activate
+python main.py
