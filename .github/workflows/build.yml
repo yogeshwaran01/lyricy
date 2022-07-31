@@ -33,7 +33,7 @@ jobs:
       - name: Package Application for Linux
         uses: JackMcKew/pyinstaller-action-linux@main
         with:
-          path: src
+          path: app
 
       - uses: actions/upload-artifact@v2
         with:
