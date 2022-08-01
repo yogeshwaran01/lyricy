@@ -39,13 +39,36 @@ We can use [spotDL/spotify-downloader](https://github.com/spotDL/spotify-downloa
 
 you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicPlayer) for android to listen the offline local songs with synced lyrics.
 
+## Features
 
-## Lyrics Providers
+- Used as a Python package, Desktop application and mobile application (PWA)
+- Easy to add lyrics to your offline songs
+- Preview of lyrics
+- Synced lyrics with lrc time tags
+- Lyrics without lrc tags
+- Save lyrics as lrc file
+- Add your own lyrics or downloaded lyrics to songs
 
-- [https://www.megalobiz.com/](https://www.megalobiz.com/)
-- [https://rclyricsband.com/](https://rclyricsband.com/)
+## Usage
 
-## Installation
+- [Using as GUI tool](#gui)
+- [Using as a CLI tool](#cli)
+- [Using as a python package](#python-package)
+
+### GUI
+
+GUI is built with [flet](https://flet.dev/)
+
+![demo](https://raw.githubusercontent.com/yogeshwaran01/lyricy/master/demo/dem_lyricy_gui.gif)
+
+- [Web Application](https://lyricy.yogeshwaran01.repl.co/#/)
+- [Desktop Application for Linux](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy-gui-linux.tar.gz)
+- [Desktop Application for Windows](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy-gui-windows.zip)
+- Use PWA to install in android
+
+### CLI
+
+#### Installation
 
 Using pip
 
@@ -54,23 +77,6 @@ pip install lyricy
 ```
 
 Windows user download this [executable file](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy.exe)
-
-## Features
-
-- Easy to add lyrics to your offline songs
-- Preview of lyrics
-- Synced lyrics with lrc time tags
-- Lyrics without lrc tags
-- Save lyrics as lrc file
-- Add your own lyrics or downloaded lyrics to songs
-- Used as a python package
-
-## Usage
-
-- [Using as a CLI tool](#cli)
-- [Using as a python package](#python-package)
-
-### CLI
 
 ![demo](https://github.com/yogeshwaran01/lyricy/blob/master/demo/demo_lyricy.gif?raw=true)
 
@@ -230,6 +236,14 @@ It will add the lyrics to song metadata
 
 ### Python Package
 
+#### Install
+
+Using pip
+
+```bash
+pip install lyricy
+```
+
 #### Simple Usage
 
 ```python
@@ -267,6 +281,11 @@ Default provider is [https://www.megalobiz.com/](https://www.megalobiz.com/), bu
 >>> selected_lyrics.lyrics
 >>> selected_lyrics.lyrics_without_lrc_tags
 ```
+
+## Lyrics Providers
+
+- [https://www.megalobiz.com/](https://www.megalobiz.com/)
+- [https://rclyricsband.com/](https://rclyricsband.com/)
 
 ## Contributions
 
