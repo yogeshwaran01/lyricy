@@ -12,12 +12,14 @@ from flet import (
     Row,
     Text,
     TextButton,
+    Radio,
+    RadioGroup,
     TextField,
     UserControl,
     colors,
     icons,
 )
-from lyricy import Lyrics, Lyricy
+from lyricy import Lyrics, Lyricy, Providers
 
 
 class LyricView(
@@ -117,6 +119,12 @@ class LyricyApp(UserControl):
             autofocus=True,
             on_submit=lambda e: self.search_btn_clicked(e),
         )
+
+        self.provider_query = RadioGroup(content=Row([
+            Radio(value='mo', label="Provider 1"),
+            Radio(value='rc', label="Provider 2")
+        ]))
+
         self.results = Column()
         self.action_btn = IconButton(icons.SEARCH, on_click=self.search_btn_clicked)
 
@@ -130,6 +138,7 @@ class LyricyApp(UserControl):
                         self.action_btn,
                     ]
                 ),
+                self.provider_query,
                 self.pb,
                 self.results,
             ],
@@ -142,7 +151,10 @@ class LyricyApp(UserControl):
         self.action_btn.disabled = True
         self.update()
         self.results.clean()
-        results = Lyricy.search(self.search_query.value)
+        if self.provider_query.value == "rc":
+            results = Lyricy.search(self.search_query.value, provider=Providers.RCLYRICSBAND)
+        else:
+            results = Lyricy.search(self.search_query.value)
         for result in results:
             self.results.controls.append(LyricView(result))
         self.pb.visible = False
