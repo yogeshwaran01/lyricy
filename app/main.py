@@ -1,3 +1,5 @@
+import os
+
 import flet
 from flet import (
     AlertDialog,
@@ -120,10 +122,14 @@ class LyricyApp(UserControl):
             on_submit=lambda e: self.search_btn_clicked(e),
         )
 
-        self.provider_query = RadioGroup(content=Row([
-            Radio(value='mo', label="Provider 1"),
-            Radio(value='rc', label="Provider 2")
-        ]))
+        self.provider_query = RadioGroup(
+            content=Row(
+                [
+                    Radio(value="mo", label="Provider 1"),
+                    Radio(value="rc", label="Provider 2"),
+                ]
+            )
+        )
 
         self.results = Column()
         self.action_btn = IconButton(icons.SEARCH, on_click=self.search_btn_clicked)
@@ -152,7 +158,9 @@ class LyricyApp(UserControl):
         self.update()
         self.results.clean()
         if self.provider_query.value == "rc":
-            results = Lyricy.search(self.search_query.value, provider=Providers.RCLYRICSBAND)
+            results = Lyricy.search(
+                self.search_query.value, provider=Providers.RCLYRICSBAND
+            )
         else:
             results = Lyricy.search(self.search_query.value)
         for result in results:
@@ -180,8 +188,6 @@ def main(page: Page):
     page.update()
     page.add(LyricyApp())
 
-
-import os
 
 port = int(os.environ.get("PORT", 5000))
 flet.app(target=main, port=port)

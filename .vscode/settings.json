@@ -3,6 +3,12 @@
     "python.formatting.blackPath": "~/.local/bin/black",
     "python.formatting.autopep8Path": "~/.local/bin/autopep8",
     "cSpell.words": [
-        "flet"
+        "addfinalizer",
+        "flet",
+        "lyricy",
+        "Megalobiz",
+        "pylrc",
+        "RCLYRICSBAND",
+        "pytest"
     ]
 }

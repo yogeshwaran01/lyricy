@@ -1,3 +1,5 @@
+"""cli script for download lyrics"""
+
 import sys
 
 import click
@@ -10,11 +12,13 @@ from rich.panel import Panel
 
 from .classes import BaseLyrics
 from .providers import Megalobiz, RcLyricsBand
+from . import __version__, __package__
 
 console = Console()
 
 
 def format_table(lyrics: BaseLyrics, disable_preview: bool) -> str:
+    """render the table format for given lyrics"""
     title = lyrics.title
     sample_lyrics = lyrics.sample_lyrics
     index = lyrics.index
@@ -24,6 +28,7 @@ def format_table(lyrics: BaseLyrics, disable_preview: bool) -> str:
 
 
 def print_help_msg(command: callable):
+    """Function print the help message on the console"""
     with click.Context(command) as ctx:
         click.echo(command.get_help(ctx))
 
@@ -35,11 +40,15 @@ def lyrics_without_tags(lyrics_with_lrc_tags: str) -> str:
 
 
 @click.group()
+@click.version_option(__version__, package_name=__package__)
 def cli():
     """
     A command line lyrics utility tool which search and add lyrics to your offline songs.
+
+    Web: https://lyricy.yogeshwaran01.repl.co/#/ 
+    
+    GitHub: https://github.com/yogeshwaran01/lyricy
     """
-    pass
 
 
 @click.command()
@@ -51,7 +60,14 @@ def cli():
 @click.option("-s", "--save", help="Save file as .lrc")
 @click.option("-q", "--query", type=str, help="search query of track name")
 @click.option("-p", "--provider", type=str, help="Lyrics provider name [rc] or [mo]")
-def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, save: str, provider: str):
+def search(
+    track: str,
+    query: str,
+    disable_preview: bool,
+    only_lyrics: bool,
+    save: str,
+    provider: str,
+):
     """Search for lyrics for given track or query"""
     if track:
         f = music_tag.load_file(track)
@@ -105,7 +121,9 @@ def search(track: str, query: str, disable_preview: bool, only_lyrics: bool, sav
 @click.option("--show", is_flag=True, help="Print the lyrics and ask for confirmation")
 @click.option("--lrc", type=click.Path(exists=True), help="Lyrics file to add on track")
 @click.option("-p", "--provider", type=str, help="Lyrics provider name [rc] or [mo]")
-def add(track: str, show: bool, disable_preview: bool, lrc: str, query: str, provider: str):
+def add(
+    track: str, show: bool, disable_preview: bool, lrc: str, query: str, provider: str
+):
     """Search and add lyrics to given TRACK.
 
     TRACK is the filepath of track.
