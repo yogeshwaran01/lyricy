@@ -5,17 +5,17 @@
 """
 
 __package__ = "lyricy"
-__description__ = (
-    "A command line lyrics utility tool which search and add lyrics to your offline songs"
-)
+__description__ = "A command line lyrics utility tool \
+which search and add lyrics to your offline songs"
 __url__ = "https://github.com/yogeshwaran01/lyricy"
-__version__ = "1.2"
+__version__ = "1.3"
 __author__ = "YOGESHWARAN R <yogeshin247@gmail.com>"
 __license__ = "MIT License"
 __copyright__ = "Copyright 2022 Yogeshwaran R"
 
 
 from enum import Enum
+from typing import List
 
 import music_tag
 
@@ -55,7 +55,7 @@ class Lyrics(BaseLyrics):
 
 class Lyricy:
     @staticmethod
-    def search(query: str, provider=Providers.MEGALOBIZ) -> list[Lyrics]:
+    def search(query: str, provider=Providers.MEGALOBIZ) -> List[Lyrics]:
         """Search for a lyrics for given Query"""
         if provider == Providers.RCLYRICSBAND:
             r = RcLyricsBand.search_lyrics(query)

@@ -1,10 +1,6 @@
 from lyricy import Lyricy, Lyrics, Providers
 
-TEST_QUERY_1 = "karka karka"
-FILE_PATH_1 = "karka_karka.lrc"
-
-TEST_QUERY_2 = "beast mode"
-FILE_PATH_2 = "beast_mode.lrc"
+from test import TEST_QUERY_1, TEST_QUERY_2, FILE_PATH_1, FILE_PATH_2
 
 
 def test_lyricy_megalobiz():

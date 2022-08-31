@@ -1,3 +1,6 @@
+"""lyrics providers"""
+
+from typing import List
 from urllib.parse import quote_plus
 
 import requests
@@ -9,7 +12,8 @@ from .classes import BaseLyrics
 class Megalobiz:
     """Search and scrape lyrics for Megalobiz site"""
 
-    def search_lyrics(song_name: str) -> list[BaseLyrics]:
+    @staticmethod
+    def search_lyrics(song_name: str) -> List[BaseLyrics]:
         """Search for lyrics"""
 
         results = []
@@ -43,9 +47,9 @@ class Megalobiz:
                 )
             ]
 
-        else:
-            return results
+        return results
 
+    @staticmethod
     def get_lyrics(link: str) -> str:
         """Scrape the lyrics for given track link"""
 
@@ -61,6 +65,7 @@ class Megalobiz:
 class RcLyricsBand:
     """Search and scrape lyrics for RcLyricsBand site"""
 
+    @staticmethod
     def search_lyrics(song_name: str):
         """Search for lyrics"""
 
@@ -85,9 +90,9 @@ class RcLyricsBand:
                     title=" No result found", link="", sample_lyrics="", index="1"
                 )
             ]
-        else:
-            return results
+        return results
 
+    @staticmethod
     def get_lyrics(link: str):
         """Scrape the lyrics for given track link"""
 
