@@ -190,4 +190,4 @@ def main(page: Page):
 
 
 port = int(os.environ.get("PORT", 5000))
-flet.app(target=main, port=port)
+flet.app(target=main, port=port, assets_dir="assets", view=flet.WEB_BROWSER)
