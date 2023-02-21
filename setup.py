@@ -7,7 +7,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="lyricy",
-    version="1.3",
+    version="1.4",
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
     description="A command line lyrics utility tool which \
