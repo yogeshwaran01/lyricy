@@ -72,13 +72,13 @@ class RcLyricsBand:
         search_link = "https://rclyricsband.com/?s="
         markup = requests.get(search_link + quote_plus(song_name)).text
         soup = BeautifulSoup(markup, "html.parser")
-        outer_tags = soup.find_all("h2", {"class": "search-entry-title"})
+        outer_tags = soup.find_all("p", {"class": "elementor-post__title"})
         results = []
         for index, outer_tag in enumerate(outer_tags):
             inner_tag = outer_tag.find("a")
             results.append(
                 BaseLyrics(
-                    title=inner_tag.get("title"),
+                    title=outer_tag.text.strip(),
                     link=inner_tag.get("href"),
                     sample_lyrics="",
                     index=str(index + 1),
