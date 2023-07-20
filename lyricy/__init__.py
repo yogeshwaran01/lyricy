@@ -43,13 +43,16 @@ class Lyrics(BaseLyrics):
         with open(path, "w") as file:
             file.write(self.lyrics)
 
-    def add_to_track(self, path: str):
+    def add_to_track(self, path: str, without_lrc_tags = False):
         """
         Add the lyrics to track metadata
         `path`: path of the track
         """
         f = music_tag.load_file(path)
-        f["lyrics"] = self.lyrics
+        if without_lrc_tags:
+            f["lyrics"] = self.lyrics_without_lrc_tags
+        else:
+            f["lyrics"] = self.lyrics
         f.save()
 
 
