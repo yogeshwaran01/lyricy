@@ -1,6 +1,7 @@
 """cli script for download lyrics"""
 
 import sys
+import re
 
 import click
 import music_tag
@@ -38,6 +39,24 @@ def lyrics_without_tags(lyrics_with_lrc_tags: str) -> str:
     parsed_text = pylrc.parse(lyrics_with_lrc_tags)
     return "\n".join([line.text for line in parsed_text])
 
+def capitalized_lyrics(lyrics: str) -> str:
+    lyrics: list[str] = lyrics.strip().split('\n')
+    lyrics_size: int = len(lyrics)
+
+    lyrics_start_index: int     # skipping the lines, containing metadata tags
+    for i in range(lyrics_size):
+        if not lyrics[i][-1] == ']':
+            lyrics_start_index = i
+            break
+    
+    for i in range(lyrics_start_index, lyrics_size):
+        try: # for skipping blank lines
+            first_letter_index: int = re.search(R"[a-zA-Z]", lyrics[i]).start()
+            lyrics[i] = lyrics[i][:first_letter_index] + lyrics[i][first_letter_index].upper() + lyrics[i][first_letter_index + 1:]
+        except:
+            pass
+    
+    return '\n'.join(lyrics)
 
 @click.group()
 @click.version_option(__version__, package_name=__package__)
