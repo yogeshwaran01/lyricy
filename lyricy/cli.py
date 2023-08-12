@@ -120,6 +120,7 @@ def search(
             lyric = RcLyricsBand.get_lyrics(selected_lyrics.link)
         else:
             lyric = Megalobiz.get_lyrics(selected_lyrics.link)
+        lyric = capitalized_lyrics(lyric)
 
     if only_lyrics:
         if save:
@@ -177,6 +178,7 @@ def add(
                 lyric = RcLyricsBand.get_lyrics(selected_lyrics.link)
             else:
                 lyric = Megalobiz.get_lyrics(selected_lyrics.link)
+            lyric = capitalized_lyrics(lyric)
 
     if show:
         print(lyric)
