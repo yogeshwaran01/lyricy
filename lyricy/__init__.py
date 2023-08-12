@@ -34,10 +34,9 @@ class Lyrics(BaseLyrics):
         """Fetch the full lyrics of the song with lrc tags"""
         if "rclyricsband" in self.link:
             self.lyrics = RcLyricsBand.get_lyrics(self.link)
-            self.lyrics = capitalized_lyrics(self.lyrics)
         else:
             self.lyrics = Megalobiz.get_lyrics(self.link)
-            self.lyrics = capitalized_lyrics(self.lyrics)
+        self.lyrics = capitalized_lyrics(self.lyrics)
         self.lyrics_without_lrc_tags = lyrics_without_tags(self.lyrics)
 
     def save(self, path: str):

@@ -93,7 +93,7 @@ class RcLyricsBand:
         return results
 
     @staticmethod
-    def get_lyrics(link: str):
+    def get_lyrics(link: str) -> str:
         """Scrape the lyrics for given track link"""
 
         markup = requests.get(link).text
