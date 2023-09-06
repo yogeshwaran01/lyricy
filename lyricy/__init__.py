@@ -20,7 +20,7 @@ from typing import List
 import music_tag
 
 from .classes import BaseLyrics
-from .cli import lyrics_without_tags
+from .cli import lyrics_without_tags, capitalized_lyrics
 from .providers import Megalobiz, RcLyricsBand
 
 
@@ -36,6 +36,7 @@ class Lyrics(BaseLyrics):
             self.lyrics = RcLyricsBand.get_lyrics(self.link)
         else:
             self.lyrics = Megalobiz.get_lyrics(self.link)
+        self.lyrics = capitalized_lyrics(self.lyrics)
         self.lyrics_without_lrc_tags = lyrics_without_tags(self.lyrics)
 
     def save(self, path: str):
@@ -43,13 +44,16 @@ class Lyrics(BaseLyrics):
         with open(path, "w") as file:
             file.write(self.lyrics)
 
-    def add_to_track(self, path: str):
+    def add_to_track(self, path: str, only_lyrics = False):
         """
         Add the lyrics to track metadata
         `path`: path of the track
         """
         f = music_tag.load_file(path)
-        f["lyrics"] = self.lyrics
+        if only_lyrics:
+            f["lyrics"] = self.lyrics_without_lrc_tags
+        else:
+            f["lyrics"] = self.lyrics
         f.save()
 
 
