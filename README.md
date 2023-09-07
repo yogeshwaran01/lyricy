@@ -59,7 +59,7 @@ you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicP
 
 GUI is built with [flet](https://flet.dev/)
 
-![demo](https://raw.githubusercontent.com/yogeshwaran01/lyricy/master/demo/dem_lyricy_gui.gif)
+![demo](https://cdn.jsdelivr.net/gh/yogeshwaran01/lyricy@latest/demo/dem_lyricy_gui.gif)
 
 - [Web Application](https://lyricy.yogeshwaran01.repl.co/#/)
 - [Desktop Application for Linux](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy-gui-linux.tar.gz)
