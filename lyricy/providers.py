@@ -16,9 +16,9 @@ class Megalobiz:
     def search_lyrics(song_name: str) -> List[BaseLyrics]:
         """Search for lyrics"""
 
-        results = []
-        search_link = "https://www.megalobiz.com/search/all?qry="
-        markup = requests.get(search_link + quote_plus(song_name)).text
+        results: List[BaseLyrics] = []
+        search_link: str = "https://www.megalobiz.com/search/all?qry="
+        markup: str = requests.get(search_link + quote_plus(song_name)).text
         soup = BeautifulSoup(markup, "html.parser")
         required_tags = soup.find_all("a", {"class": "entity_name"})
 
@@ -33,17 +33,17 @@ class Megalobiz:
         for index, tag in enumerate(required_tags):
             results.append(
                 BaseLyrics(
-                    title=tag.get("title"),
-                    link="https://www.megalobiz.com" + tag.get("href"),
-                    sample_lyrics=sample_lyrics_list[index],
-                    index=str(index + 1),
+                    title = tag.get("title"),
+                    link = "https://www.megalobiz.com" + tag.get("href"),
+                    sample_lyrics = sample_lyrics_list[index],
+                    index = str(index + 1)
                 )
             )
 
         if len(results) == 0:
             return [
                 BaseLyrics(
-                    title=" No result found", link="", sample_lyrics="", index="1"
+                    title = "No result found", link = "", sample_lyrics = "", index = "1"
                 )
             ]
 
@@ -53,7 +53,7 @@ class Megalobiz:
     def get_lyrics(link: str) -> str:
         """Scrape the lyrics for given track link"""
 
-        markup = requests.get(link).text
+        markup: str = requests.get(link).text
         soup = BeautifulSoup(markup, "html.parser")
         return (
             soup.find("div", {"class": "lyrics_details entity_more_info"})
@@ -66,14 +66,14 @@ class RcLyricsBand:
     """Search and scrape lyrics for RcLyricsBand site"""
 
     @staticmethod
-    def search_lyrics(song_name: str):
+    def search_lyrics(song_name: str) -> List[BaseLyrics]:
         """Search for lyrics"""
 
-        search_link = "https://rclyricsband.com/?s="
-        markup = requests.get(search_link + quote_plus(song_name)).text
+        search_link: str = "https://rclyricsband.com/?s="
+        markup: str = requests.get(search_link + quote_plus(song_name)).text
         soup = BeautifulSoup(markup, "html.parser")
         outer_tags = soup.find_all("article", {"class": "post"})
-        results = []
+        results: List[BaseLyrics] = []
         for index, outer_tag in enumerate(outer_tags):
             title_tag = outer_tag.find('h2', {'class': 'entry-title'})
             results.append(
@@ -87,7 +87,7 @@ class RcLyricsBand:
         if len(results) == 0:
             return [
                 BaseLyrics(
-                    title=" No result found", link="", sample_lyrics="", index="1"
+                    title = "No result found", link = "", sample_lyrics = "", index = "1"
                 )
             ]
         return results
@@ -96,7 +96,7 @@ class RcLyricsBand:
     def get_lyrics(link: str) -> str:
         """Scrape the lyrics for given track link"""
 
-        markup = requests.get(link).text
+        markup: str = requests.get(link).text
         soup = BeautifulSoup(markup, "html.parser")
         lyric_text: str = soup.find(id = 'whole_lyrics_line').text.strip()
         if lyric_text[-4:].lower() == ".com":
