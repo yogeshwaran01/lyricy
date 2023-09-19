@@ -33,17 +33,17 @@ class Megalobiz:
         for index, tag in enumerate(required_tags):
             results.append(
                 BaseLyrics(
-                    title = tag.get("title"),
-                    link = "https://www.megalobiz.com" + tag.get("href"),
-                    sample_lyrics = sample_lyrics_list[index],
-                    index = str(index + 1)
+                    title=tag.get("title"),
+                    link="https://www.megalobiz.com" + tag.get("href"),
+                    sample_lyrics=sample_lyrics_list[index],
+                    index=str(index + 1),
                 )
             )
 
         if len(results) == 0:
             return [
                 BaseLyrics(
-                    title = "No result found", link = "", sample_lyrics = "", index = "1"
+                    title="No result found", link="", sample_lyrics="", index="1"
                 )
             ]
 
@@ -75,19 +75,21 @@ class RcLyricsBand:
         outer_tags = soup.find_all("article", {"class": "post"})
         results: List[BaseLyrics] = []
         for index, outer_tag in enumerate(outer_tags):
-            title_tag = outer_tag.find('h2', {'class': 'entry-title'})
+            title_tag = outer_tag.find("h2", {"class": "entry-title"})
             results.append(
                 BaseLyrics(
-                    title = title_tag.text.strip(),
-                    link = title_tag.find('a').get('href'),
-                    sample_lyrics = outer_tag.find('div', {'class': 'search-entry-summary'}).text.strip(),
-                    index = str(index + 1)
+                    title=title_tag.text.strip(),
+                    link=title_tag.find("a").get("href"),
+                    sample_lyrics=outer_tag.find(
+                        "div", {"class": "search-entry-summary"}
+                    ).text.strip(),
+                    index=str(index + 1),
                 )
             )
         if len(results) == 0:
             return [
                 BaseLyrics(
-                    title = "No result found", link = "", sample_lyrics = "", index = "1"
+                    title="No result found", link="", sample_lyrics="", index="1"
                 )
             ]
         return results
@@ -98,9 +100,9 @@ class RcLyricsBand:
 
         markup: str = requests.get(link).text
         soup = BeautifulSoup(markup, "html.parser")
-        lyric_text: str = soup.find(id = 'whole_lyrics_line').text.strip()
+        lyric_text: str = soup.find(id="whole_lyrics_line").text.strip()
         if lyric_text[-4:].lower() == ".com":
-            lyric_text: list[str] = lyric_text.split('\n')
+            lyric_text: list[str] = lyric_text.split("\n")
             lyric_text.pop()
             lyric_text: str = "\n".join(lyric_text)
         return lyric_text

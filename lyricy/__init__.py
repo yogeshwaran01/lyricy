@@ -44,7 +44,7 @@ class Lyrics(BaseLyrics):
         with open(path, "w") as file:
             file.write(self.lyrics)
 
-    def add_to_track(self, path: str, only_lyrics = False):
+    def add_to_track(self, path: str, only_lyrics=False):
         """
         Add the lyrics to track metadata
         `path`: path of the track

@@ -282,6 +282,34 @@ Default provider is [https://www.megalobiz.com/](https://www.megalobiz.com/), bu
 >>> selected_lyrics.lyrics_without_lrc_tags
 ```
 
+## Dev Setup
+
+- Clone repo
+- Install package requirements
+
+```bash
+pip install -r requirements
+```
+
+- Install dev requiremnts
+
+```bash
+pip install black flake8 pytest
+```
+
+- Linting
+
+```bash
+black
+flake8 -v
+```
+
+- Test
+
+```bash
+pytest -v
+```
+
 ## Lyrics Providers
 
 - [https://www.megalobiz.com/](https://www.megalobiz.com/)
