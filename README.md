@@ -41,7 +41,7 @@ you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicP
 
 ## Features
 
-- Used as a Python package, Desktop application and mobile application (PWA)
+- Used as a Python package and Command Line Interface (CLI)
 - Easy to add lyrics to your offline songs
 - Preview of lyrics
 - Synced lyrics with lrc time tags
@@ -51,20 +51,8 @@ you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicP
 
 ## Usage
 
-- [Using as GUI tool](#gui)
 - [Using as a CLI tool](#cli)
 - [Using as a python package](#python-package)
-
-### GUI
-
-GUI is built with [flet](https://flet.dev/)
-
-![demo](https://cdn.jsdelivr.net/gh/yogeshwaran01/lyricy@latest/demo/dem_lyricy_gui.gif)
-
-- [Web Application](https://lyricy.yogeshwaran01.repl.co/#/)
-- [Desktop Application for Linux](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy-gui-linux.tar.gz)
-- [Desktop Application for Windows](https://github.com/yogeshwaran01/lyricy/releases/download/1.2/lyricy-gui-windows.zip)
-- Use PWA to install in android
 
 ### CLI
 
@@ -145,14 +133,16 @@ Usage: python -m lyricy add [OPTIONS] TRACK
 
   Search and add lyrics to given TRACK.
 
-  TRACK is the filepath of track.
+  TRACK can be the filepath of a track or a directory path.
 
 Options:
   -q, --query TEXT       search for this query instead of track name
   -d, --disable-preview  Disable the preview
   --show                 Print the lyrics and ask for confirmation
   --lrc PATH             Lyrics file to add on track
-  -p, --provider TEXT    Lyrics provider name [rc] or [mo]
+  -p, --provider TEXT    Lyrics provider name: [lr] (LRCLIB), [bl] (BetterLyrics), [rc] (RcLyricsBand), or [mo] (Megalobiz)
+  -r, --recursive        Recursively process directories
+  -a, --auto             Auto-match and save lyrics without prompting
   --help                 Show this message and exit.
 ```
 
@@ -160,27 +150,37 @@ Options:
 lyricy add 'Imagine Dragons - Believer.mp3'
 ```
 
-select the preferred lyrics for the song to add it
+Select the preferred lyrics for the song to add it.
 
-If track does not have metadata `title` or any other irrelevant name, use can use `--query` option to override this.
+If the track does not have metadata `title` or has an irrelevant filename, you can use the `--query` option to override this:
 
 ```bash
 lyricy add 'some-track.mp3' --query "vikram title track"
 ```
 
-#### Changing lyrics provider
+#### Flagship Automation (Bulk Tagging & Auto-Match)
 
-By default the lyrics provider is is megalobiz, but you can use other provider is rclyricsband
-
-- `rc` for [https://rclyricsband.com/](https://rclyricsband.com/)
-- `mo` for [https://www.megalobiz.com/](https://www.megalobiz.com/)
+You can recursively tag an entire directory of tracks and automatically match/save lyrics using the default smart fallback chain without any interactive prompting:
 
 ```bash
-lyricy add 'some-track.mp3' --query "vikram title track" --provider rc
+lyricy add --recursive --auto ./my_music_directory/
+```
+
+#### Changing lyrics provider
+
+By default, the lyrics provider uses a smart fallback chain starting with **LRCLIB** (our flagship premium provider). You can manually lock it to a specific provider:
+
+- `lr` for [https://lrclib.net](https://lrclib.net) (Default, lightning-fast, high-quality synchronized/plain lyrics)
+- `bl` for [BetterLyrics](https://lyrics-api.boidu.dev) (Direct timed XML TTML parsing)
+- `rc` for [https://rclyricsband.com/](https://rclyricsband.com/) (Scraped synchronized lyrics)
+- `mo` for [https://www.megalobiz.com/](https://www.megalobiz.com/) (Scraped synchronized lyrics)
+
+```bash
+lyricy add 'some-track.mp3' --query "vikram title track" --provider bl
 ```
 
 ```bash
-lyricy search --query "karka kark" --provider mo
+lyricy search --query "karka kark" --provider lr
 ```
 
 #### Remove lyrics
@@ -268,13 +268,13 @@ pip install lyricy
 
 #### Using Other Providers
 
-Default provider is [https://www.megalobiz.com/](https://www.megalobiz.com/), but you can use other provider is [https://rclyricsband.com/](https://rclyricsband.com/).
+By default, the provider is **LRCLIB** (`Providers.LRCLIB`), but you can specify other providers like `Providers.BETTERLYRICS`, `Providers.RCLYRICSBAND`, or `Providers.MEGALOBIZ`.
 
 ```python
 >>> from lyricy import Lyricy, Providers
 
 >>> l = Lyricy()
->>> results = l.search("vikram", provider=Providers.RCLYRICSBAND)
+>>> results = l.search("vikram", provider=Providers.BETTERLYRICS)
 >>> selected_lyrics = results[0]
 >>> selected_lyrics.fetch()
 
@@ -312,8 +312,10 @@ pytest -v
 
 ## Lyrics Providers
 
-- [https://www.megalobiz.com/](https://www.megalobiz.com/)
-- [https://rclyricsband.com/](https://rclyricsband.com/)
+- **LRCLIB** ([https://lrclib.net](https://lrclib.net)) - Lightning-fast default provider.
+- **BetterLyrics** ([https://lyrics-api.boidu.dev](https://lyrics-api.boidu.dev)) - Timed XML TTML.
+- **RcLyricsBand** ([https://rclyricsband.com/](https://rclyricsband.com/)) - Scraped synced lyrics.
+- **Megalobiz** ([https://www.megalobiz.com/](https://www.megalobiz.com/)) - Scraped synced lyrics.
 
 ## Contributions
 
