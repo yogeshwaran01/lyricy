@@ -1,0 +1,21 @@
+{
+  "name": "ytm-synchronized-lyrics-extension",
+  "version": "1.0.0",
+  "description": "YouTube Music Synchronized Lyrics Browser Extension",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:background": "esbuild src/background/index.ts --bundle --minify --platform=browser --outfile=dist/background.js",
+    "build:content": "esbuild src/content/index.ts --bundle --minify --platform=browser --outfile=dist/content.js",
+    "build:web": "vite build",
+    "build": "npm run clean && npm run build:web && npm run build:background && npm run build:content && node copy-assets.js"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "esbuild": "^0.20.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.3.0"
+  }
+}

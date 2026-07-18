@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lyricy</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="dark-theme">
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="logo">
+        <img class="logo-img" src="../icons/icon48.png" alt="lyricy" width="18" height="18">
+        <span>lyricy</span>
+      </div>
+      <button id="btn-options" class="btn-icon" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Track metadata card -->
+    <section class="track-card">
+      <img id="track-art" src="https://music.youtube.com/img/on_platform_logo_dark.svg" alt="Album Art">
+      <div class="track-info">
+        <div id="track-title" class="truncate">No Music Playing</div>
+        <div id="track-artist" class="truncate">Open YouTube Music to start</div>
+        <div id="track-provider" class="provider-tag">Offline</div>
+      </div>
+    </section>
+
+    <!-- Playback Control switches -->
+    <section class="controls-section">
+      <div class="control-row">
+        <span class="control-label">Show Lyrics Overlay</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle-active">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="mode-selector">
+        <button id="mode-overlay" class="mode-btn active" data-mode="overlay">
+          <span>Overlay</span>
+        </button>
+        <button id="mode-sidebar" class="mode-btn" data-mode="sidebar">
+          <span>Sidebar</span>
+        </button>
+        <button id="mode-fullscreen" class="mode-btn" data-mode="fullscreen">
+          <span>Fullscreen</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Manual search section -->
+    <section class="search-section">
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search lyrics manually...">
+        <button id="search-submit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-list hidden">
+        <!-- Result items populated dynamically -->
+      </div>
+    </section>
+  </div>
+  <script src="popup.ts" type="module"></script>
+</body>
+</html>

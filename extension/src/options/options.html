@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lyricy - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body class="dark-theme">
+  <div class="settings-container">
+    <header class="settings-header">
+      <div class="logo">
+        <img class="logo-img" src="../icons/icon48.png" alt="lyricy" width="24" height="24">
+        <span>lyricy settings</span>
+      </div>
+      <div class="status-msg" id="status-message">Saved</div>
+    </header>
+
+    <main class="settings-grid">
+      <!-- Section: Display Settings -->
+      <section class="settings-card">
+        <h2>Appearance & Layout</h2>
+        
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="title">Theme</span>
+            <span class="desc">Color scheme for the lyrics panel.</span>
+          </div>
+          <select id="setting-theme" class="select-input">
+            <option value="adaptive">Adaptive (Match YTM)</option>
+            <option value="dark">Dark Theme</option>
+            <option value="light">Light Theme</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="title">Font Size</span>
+            <span class="desc" id="fontSize-value">20px</span>
+          </div>
+          <div class="slider-container">
+            <input type="range" id="setting-fontSize" min="14" max="48" step="1">
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="title">Opacity</span>
+            <span class="desc" id="opacity-value">85%</span>
+          </div>
+          <div class="slider-container">
+            <input type="range" id="setting-opacity" min="0.2" max="1.0" step="0.05">
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="title">Sidebar Position</span>
+            <span class="desc">Side where the lyrics panel is docked.</span>
+          </div>
+          <select id="setting-sidebarPos" class="select-input">
+            <option value="right">Right Side</option>
+            <option value="left">Left Side</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Section: Lyrics & Synchronization -->
+      <section class="settings-card">
+        <h2>Lyrics & Synchronization</h2>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="title">Animation Speed</span>
+            <span class="desc">Highlight scroll animation speed.</span>
+          </div>
+          <select id="setting-animSpeed" class="select-input">
+            <option value="smooth">Smooth (macOS default)</option>
+            <option value="fast">Fast</option>
+            <option value="off">None (Instant)</option>
+          </select>
+        </div>
+
+        <div class="setting-item-row">
+          <label class="checkbox-container">
+            <input type="checkbox" id="setting-fullscreenArt">
+            <span class="checkmark"></span>
+            <div class="checkbox-label">
+              <span class="title">Fullscreen Breathing Backdrop</span>
+              <span class="desc">Slowly pan the blurred artwork in Fullscreen Mode.</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="setting-item-row">
+          <label class="checkbox-container">
+            <input type="checkbox" id="setting-clickthrough">
+            <span class="checkmark"></span>
+            <div class="checkbox-label">
+              <span class="title">Overlay Click-Through</span>
+              <span class="desc">Click through floating lyrics to trigger elements underneath.</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section: Providers Priority -->
+      <section class="settings-card full-width">
+        <h2>Providers Search Order</h2>
+        <p class="section-desc">Drag and drop (or select order) to prioritize which sources are queried first. If lyrics aren't found in the first, it will fall back to the next.</p>
+        
+        <div class="provider-priority-list" id="providers-list">
+          <div class="provider-item" draggable="true" data-provider="lrclib">
+            <div class="drag-handle">⋮⋮</div>
+            <div class="provider-details">
+              <span class="name">LrcLib API</span>
+              <span class="desc">Excellent, clean, user-contributed synchronized lyrics database (Recommended).</span>
+            </div>
+          </div>
+          <div class="provider-item" draggable="true" data-provider="betterlyrics">
+            <div class="drag-handle">⋮⋮</div>
+            <div class="provider-details">
+              <span class="name">BetterLyrics API</span>
+              <span class="desc">Direct API lookup fetching clean TTML timed subtitles.</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <div class="settings-actions">
+        <button id="btn-reset-layout" class="btn btn-secondary">Reset Panel Layout Positions</button>
+      </div>
+    </main>
+  </div>
+  <script src="options.ts" type="module"></script>
+</body>
+</html>
