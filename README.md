@@ -39,6 +39,15 @@ We can use [spotDL/spotify-downloader](https://github.com/spotDL/spotify-downloa
 
 you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicPlayer) for android to listen the offline local songs with synced lyrics.
 
+## Browser Extension (YouTube Music Extension)
+
+> [!IMPORTANT]
+> We also include a gorgeous **Brave/Chrome Browser Extension** inside the [extension](./extension/) directory that displays these time-synchronized lyrics as a beautiful > **macOS-inspired Liquid Glass overlay** on YouTube Music:
+> - Live scroll synchronization & active line highlight.
+> - Floating overlay panels, docked sidebar panels, and an immersive fullscreen player mode.
+> - Floating always-on-top **Picture-in-Picture** window.
+> - For setup instructions, see the [Extension README](./extension/README.md).
+
 ## Features
 
 - Used as a Python package and Command Line Interface (CLI)
@@ -49,13 +58,7 @@ you can use [Retro music player](https://github.com/RetroMusicPlayer/RetroMusicP
 - Save lyrics as lrc file
 - Add your own lyrics or downloaded lyrics to songs
 
-## Browser Extension (YouTube Music Overlay)
 
-We also include a gorgeous **Brave/Chrome Browser Extension** inside the [extension/](./extension/) directory that displays these time-synchronized lyrics as a beautiful **macOS-inspired Liquid Glass overlay** on YouTube Music:
-- Live scroll synchronization & active line highlight.
-- Floating overlay panels, docked sidebar panels, and an immersive fullscreen player mode.
-- Floating always-on-top **Picture-in-Picture** window.
-- For setup instructions, see the [Extension README](./extension/README.md).
 
 ## Usage
 
